@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  web:
+    image: php:7.4-cli
+    volumes:
+      - ./src:/src
+    working_dir: /src
+    command: php artisan serve
+    # command: php index.php
+    ports:
+      - 8080:8080
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
