@@ -2,13 +2,32 @@ version: '3'
 
 services:
   web:
-    image: php:7.4-cli
+    container_name: php-apache
+    # image: php:8.0-apache
+    build:
+      context: ./php
+      dockerfile: Dockerfile
     volumes:
-      - ./src:/src
-    working_dir: /src
-    command: php artisan serve
-    # command: php index.php
+      - ./src:/var/www/html/
+    working_dir: /var/www/html/
+    depends_on:
+      - db
     ports:
-      - 8080:8080
+      - 8123:80
     extra_hosts:
       - "host.docker.internal:host-gateway"
+
+  db:
+    container_name: mysql
+    image: mysql:8.0
+    # volumes:
+    #   - ./db:/var/lib/mysql
+    env_file:
+      - .env
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USERNAME: ${MYSQL_USERNAME}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    ports:
+      - 3309:3306
