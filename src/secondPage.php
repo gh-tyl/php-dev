@@ -31,6 +31,15 @@
         echo '<li>' . $places[array_rand($places)] . '</li>';
     }
     echo '</ol>';
+
+    $counter = 0;
+    echo '<ol>';
+    while ($counter < count($places)) {
+        echo '<li>' . $places[$counter] . '</li>';
+        $counter++;
+    }
+    echo '</ol>';
+
     ?>
 </body>
 </html>
