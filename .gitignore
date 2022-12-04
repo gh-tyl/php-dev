@@ -35,4 +35,6 @@ Homestead.json
 !.vscode/extensions.json
 !.vscode/*.code-snippets
 
+# original source:
+assignments
 userData.txt
