@@ -22,7 +22,6 @@
       <div class="row justify-content-center align-items-center g-2">
         <div class="col">
           <div class="mb-3">
-            <!-- <form action="<?php $_SERVER['PHP_SELF'] ?>"> -->
             <form action="<?php $_SERVER['PHP_SELF'] ?>" method="POST">
               <label for="fname" class="form-label">fname</label>
               <input type="text" class="form-control" name="fname" id="" aria-describedby="helpId" placeholder="">
