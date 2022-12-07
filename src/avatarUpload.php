@@ -12,6 +12,7 @@
     <img src="<?php
     if (isset($_GET['picurl'])) {
         echo $_GET['picurl'];
+        echo ("<br/>");
     }
     ?>">
     <?php
@@ -19,16 +20,19 @@
         $uploadedFile = $_FILES['avatarimg'];
         // $sourceName = basename($uploadedFile['name']);
         // $sourceName = './data/test/userData.txt';
-        // printf(pathinfo($sourceName,PATHINFO_EXTENSION));//to extract the extension
+        // printf(pathinfo($sourceName, PATHINFO_EXTENSION)); //to extract the extension
         // echo "<br/>";
-        // printf(pathinfo($sourceName,PATHINFO_BASENAME));//to extract the filename and extension
+        // printf(pathinfo($sourceName, PATHINFO_BASENAME)); //to extract the filename and extension
         // echo "<br/>";
-        // printf(pathinfo($sourceName,PATHINFO_FILENAME));//to extract only the filename
+        // printf(pathinfo($sourceName, PATHINFO_FILENAME)); //to extract only the filename
         // echo "<br/>";
-        // printf(pathinfo($sourceName,PATHINFO_DIRNAME));//tyo extract the directory path of the file
+        // printf(pathinfo($sourceName, PATHINFO_DIRNAME)); //tyo extract the directory path of the file
         // print_r(getimagesize($uploadedFile['tmp_name'])); //will get the details of an actual image
         function fileUpload($srcPath, $dstPath)
         {
+            print('$srcPath: ' . $srcPath . "<br/>");
+            print('$dstPath: ' . $dstPath . "<br/>");
+            // print('move_uploaded_file($srcPath, $dstPath)' . move_uploaded_file($srcPath, $dstPath) . "<br/>");
             if (move_uploaded_file($srcPath, $dstPath)) {
                 echo "File " . pathinfo($srcPath, PATHINFO_FILENAME) . " has been uploaded.";
                 return true;
@@ -39,12 +43,10 @@
         }
         $targetdir = "./data/img/";
         if ($uploadedFile['size'] < 300000) {
-            print_r($uploadedFile['type']);
             if ($uploadedFile['type'] == "image/png" || $uploadedFile['type'] == "image/jpg" || $uploadedFile['type'] == "image/jpeg" || $uploadedFile['type'] == "image/gif") {
                 $srcPath = $uploadedFile['tmp_name'];
                 $dstPath = $targetdir . $uploadedFile['name'];
                 if (fileUpload($srcPath, $dstPath)) {
-                    print($_SERVER['PHP_SELF'] . "?picurl=$dstPath");
                     header("Location: " . $_SERVER['PHP_SELF'] . "?picurl=$dstPath");
                     exit();
                 } else {
