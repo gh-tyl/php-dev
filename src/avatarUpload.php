@@ -13,50 +13,51 @@
     if (isset($_GET['picurl'])) {
         echo $_GET['picurl'];
     }
-    ?>" />
+    ?>">
     <?php
-if ($_SERVER['REQUEST_METHOD'] == "POST") {
-    $uploadedFile = $_FILES['avatarimg'];
-    // $sourceName = basename($uploadedFile['name']);
-    // $sourceName = './data/test/userData.txt';
-    // printf(pathinfo($sourceName,PATHINFO_EXTENSION));//to extract the extension
-    // echo "<br/>";
-    // printf(pathinfo($sourceName,PATHINFO_BASENAME));//to extract the filename and extension
-    // echo "<br/>";
-    // printf(pathinfo($sourceName,PATHINFO_FILENAME));//to extract only the filename
-    // echo "<br/>";
-    // printf(pathinfo($sourceName,PATHINFO_DIRNAME));//tyo extract the directory path of the file
-    // print_r(getimagesize($uploadedFile['tmp_name'])); //will get the details of an actual image
-    function fileUpload($srcPath, $dstPath)
-    {
-        if (move_uploaded_file($srcPath, $dstPath)) {
-            echo "File " . pathinfo($srcPath, PATHINFO_FILENAME) . " has been uploaded.";
-            return true;
-        } else {
-            echo "File " . pathinfo($srcPath, PATHINFO_FILENAME) . " has not been uploaded.";
-            return false;
-        }
-    }
-    $targetdir = "./data/img/";
-    if ($uploadedFile['size'] < 300000) {
-        print_r($uploadedFile['type']);
-        if ($uploadedFile['type'] == "image/png" || $uploadedFile['type'] == "image/jpg" || $uploadedFile['type'] == "image/jpeg" || $uploadedFile['type'] == "image/gif") {
-            $srcPath = $uploadedFile['tmp_name'];
-            $dstPath = $targetdir . $uploadedFile['name'];
-            if (fileUpload($srcPath, $dstPath)) {
-                header("Location: " . $_SERVER['PHP_SELF'] . "?picurl=$dstPath");
-                exit();
+    if ($_SERVER['REQUEST_METHOD'] == "POST") {
+        $uploadedFile = $_FILES['avatarimg'];
+        // $sourceName = basename($uploadedFile['name']);
+        // $sourceName = './data/test/userData.txt';
+        // printf(pathinfo($sourceName,PATHINFO_EXTENSION));//to extract the extension
+        // echo "<br/>";
+        // printf(pathinfo($sourceName,PATHINFO_BASENAME));//to extract the filename and extension
+        // echo "<br/>";
+        // printf(pathinfo($sourceName,PATHINFO_FILENAME));//to extract only the filename
+        // echo "<br/>";
+        // printf(pathinfo($sourceName,PATHINFO_DIRNAME));//tyo extract the directory path of the file
+        // print_r(getimagesize($uploadedFile['tmp_name'])); //will get the details of an actual image
+        function fileUpload($srcPath, $dstPath)
+        {
+            if (move_uploaded_file($srcPath, $dstPath)) {
+                echo "File " . pathinfo($srcPath, PATHINFO_FILENAME) . " has been uploaded.";
+                return true;
             } else {
+                echo "File " . pathinfo($srcPath, PATHINFO_FILENAME) . " has not been uploaded.";
+                return false;
+            }
+        }
+        $targetdir = "./data/img/";
+        if ($uploadedFile['size'] < 300000) {
+            print_r($uploadedFile['type']);
+            if ($uploadedFile['type'] == "image/png" || $uploadedFile['type'] == "image/jpg" || $uploadedFile['type'] == "image/jpeg" || $uploadedFile['type'] == "image/gif") {
+                $srcPath = $uploadedFile['tmp_name'];
+                $dstPath = $targetdir . $uploadedFile['name'];
+                if (fileUpload($srcPath, $dstPath)) {
+                    print($_SERVER['PHP_SELF'] . "?picurl=$dstPath");
+                    header("Location: " . $_SERVER['PHP_SELF'] . "?picurl=$dstPath");
+                    exit();
+                } else {
 
+                }
+            } else {
+                echo "<h3>File is not accepted image type. (JPG,PNG,GIF)</h3>";
             }
         } else {
-            echo "<h3>File is not accepted image type. (JPG,PNG,GIF)</h3>";
+            echo "<h3>Image is too big</h3>";
         }
-    } else {
-        echo "<h3>Image is too big</h3>";
     }
-}
-?>
+    ?>
 </body>
 
 </html>
