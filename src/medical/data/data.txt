@@ -1,1 +1,1 @@
-[{"id":"1","fname":"tyl","lname":"inr","pass":"1","spec":"1","img":".\/data\/avatars\/tyl925.jpeg"}]
+[{"id":"1","fname":"Naoki","lname":"Hitak","pass":"test","spec":"General","img":".\/data\/avatars\/Naoki222.jpeg"}]
