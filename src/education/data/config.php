@@ -1,4 +1,4 @@
 <?php
-    $baseName = "http://localhost/php/EducationSystem/";
-    session_start();
+$baseName = "http://localhost:8123/assignments/Tyler_PHPCW2/";
+session_start();
 ?>
