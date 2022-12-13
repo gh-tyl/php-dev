@@ -64,14 +64,14 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                         <tbody class="table-group-divider">
                             <?php
 
-                foreach ($data as $key => $val) {
-                    echo "<tr class='table-primary' >";
-                    echo "<td>" . $val['first_name'] . " " . $val['last_name'] . "</td>";
-                    echo "<td>" . $val['phone'] . "</td>";
-                    echo "<td><a href='" . $_SERVER['PHP_SELF'] . "?id=$key'>Edit</a></td>";
-                    echo "</tr>";
-                }
-                ?>
+                            foreach ($data as $key => $val) {
+                                echo "<tr class='table-primary' >";
+                                echo "<td>" . $val['first_name'] . " " . $val['last_name'] . "</td>";
+                                echo "<td>" . $val['phone'] . "</td>";
+                                echo "<td><a href='" . $_SERVER['PHP_SELF'] . "?id=$key'>Edit</a></td>";
+                                echo "</tr>";
+                            }
+                            ?>
                         </tbody>
                         <tfoot>
 

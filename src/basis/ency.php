@@ -1,6 +1,7 @@
 <?php
-$file = fopen("./data/employee/contactlist.json", "r");
-$data = fread($file, filesize('./data/employee/contactlist.json'));
+$filePath = "./data/contactlist.json";
+$file = fopen($filePath, "r");
+$data = fread($file, filesize($filePath));
 fclose($file);
 $key = "Hotdog";
 $cipher_alog = "aes-256-gcm";
@@ -11,7 +12,7 @@ $ivdata = [$iv, $tag];
 $file = fopen("./data/employee/ivs.dat", "w");
 fwrite($file, implode(",", $ivdata));
 fclose($file);
-$file = fopen("./data/employee/contactlist.json", "w");
+$file = fopen($filePath, "w");
 fwrite($file, $enc_text);
 fclose($file);
 // echo "<h1>$enc_text</h1>";
