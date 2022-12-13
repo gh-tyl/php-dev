@@ -1,3 +1,3 @@
 <?php
-    $baseName = "http://localhost/php/medicalSystem/";
+$baseName = "http://localhost/php/medicalSystem/";
 ?>
