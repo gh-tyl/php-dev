@@ -1,6 +1,6 @@
 <?php
-$MYSQL_HOST = "db";
-$MYSQL_USERNAME = "root";
-$MYSQL_PASSWORD = $_ENV['MYSQL_ROOT_PASSWORD'];
-$MYSQL_DATABASE = $_ENV['MYSQL_DATABASE'];
+$hostName = "localhost";
+$userName = "root";
+$password = "";
+$dbName = "edu_db";
 ?>

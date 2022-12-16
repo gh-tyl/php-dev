@@ -1,29 +1,44 @@
 <?php
-include './config.php';
-function dbConnect()
+class dbServices
 {
-    global $MYSQL_HOST;
-    global $MYSQL_USERNAME;
-    global $MYSQL_PASSWORD;
-    global $MYSQL_DATABASE;
-    $dbcon = new mysqli($MYSQL_HOST, $MYSQL_USERNAME, $MYSQL_PASSWORD, $MYSQL_DATABASE);
-    if ($dbcon->connect_error) {
+    private $hostName;
+    private $userName;
+    private $password;
+    private $dbName;
+    private $dbcon;
+    function __construct($hostName, $userName, $password, $dbName)
+    {
+        $this->hostName = $hostName;
+        $this->userName = $userName;
+        $this->password = $password;
+        $this->dbName = $dbName;
+    }
+    function dbConnect()
+    {
+        $dbcon = new mysqli($this->hostName, $this->userName, $this->password, $this->dbName);
+        if ($dbcon->connect_error) {
+            return false;
+        }
+        $this->dbcon = $dbcon;
+        return $dbcon;
+    }
+    function closeDb()
+    {
+        $this->dbcon->close();
+    }
+    function insert($tbName, $valuesArray, $fieldArray = null)
+    {
+        if ($fieldArray != null) {
+            $fields = "(" . implode(',', $fieldArray) . ")";
+        } else {
+            $fields = '';
+        }
+        $values = implode(',', $valuesArray);
+        $insertCmd = "INSERT INTO $tbName $fields VALUES ($values)";
+        if ($this->dbcon->query($insertCmd) === TRUE) {
+            return true;
+        }
         return false;
     }
-    return $dbcon;
-}
-function dbInsert($id, $fname, $lname, $mail, $pass)
-{
-    $newRow = "INSERT INTO stu_tb VALUES ($id, '$fname', '$lname', '$mail', '$pass');";
-    $con = dbConnect();
-    if ($con->query($newRow) === true) {
-        $con->close();
-        return true;
-    } else {
-        $con->close();
-        return false;
-    }
-    ;
-    // $con->close();
 }
 ?>
