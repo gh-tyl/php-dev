@@ -17,16 +17,21 @@ services:
     env_file:
       - .env
     environment:
+      BASE_NAME: ${BASE_NAME}
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_DATABASE: ${MYSQL_DATABASE}
       MYSQL_USERNAME: ${MYSQL_USERNAME}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_DATABASE_CLASS: ${MYSQL_DATABASE_CLASS}
     extra_hosts:
       - "host.docker.internal:host-gateway"
 
   db:
     container_name: mysql
-    image: mysql:8.0
+    # image: mysql:8.0
+    build:
+      context: ./db
+      dockerfile: Dockerfile
     # volumes:
     #   - ./db:/var/lib/mysql
     env_file:
@@ -36,5 +41,6 @@ services:
       MYSQL_DATABASE: ${MYSQL_DATABASE}
       MYSQL_USERNAME: ${MYSQL_USERNAME}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_DATABASE_CLASS: ${MYSQL_DATABASE_CLASS}
     ports:
       - ${DB_PORT}:3306
