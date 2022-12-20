@@ -1,6 +1,7 @@
 <?php
-$hostName = "localhost";
+$hostName = "db";
 $userName = "root";
-$password = "";
-$dbName = "edu_db";
+$password = "TESXwkQTp_5!";
+$dbName = "tamwood";
+$baseName = "http://localhost:8123/edusys/";
 ?>

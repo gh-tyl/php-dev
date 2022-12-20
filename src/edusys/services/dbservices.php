@@ -40,5 +40,52 @@ class dbServices
         }
         return false;
     }
+    function select($tbName, $fieldArray = null, $whereArray = null, $operator = null)
+    {
+        if ($fieldArray != null) {
+            $fields = implode(',', $fieldArray);
+        } else {
+            $fields = '*';
+        }
+        if ($whereArray != null) {
+            $where = "WHERE ";
+            $i = 0;
+            foreach ($whereArray as $key => $value) {
+                if ($i > 0) {
+                    $where .= " $operator ";
+                }
+                $where .= "$key = $value";
+                $i++;
+            }
+        } else {
+            $where = '';
+        }
+        $selectCmd = "SELECT $fields FROM $tbName $where";
+        $result = $this->dbcon->query($selectCmd);
+        if ($result->num_rows > 0) {
+            return $result;
+        }
+        return false;
+    }
+
+// function select($tbName, $fieldArray = null, $where = null)
+// {
+//     if ($fieldArray != null) {
+//         $fields = implode(',', $fieldArray);
+//     } else {
+//         $fields = '*';
+//     }
+//     if ($where != null) {
+//         $where = "WHERE $where";
+//     } else {
+//         $where = '';
+//     }
+//     $selectCmd = "SELECT $fields FROM $tbName $where";
+//     $result = $this->dbcon->query($selectCmd);
+//     if ($result->num_rows > 0) {
+//         return $result;
+//     }
+//     return false;
+// }
 }
 ?>
