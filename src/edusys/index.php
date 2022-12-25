@@ -23,14 +23,30 @@
     </div>
 </div>
 <?php
-include './services/dbservices.php';
-include './services/logservice.php';
-$dbService = new dbServices($hostName, $userName, $password, $dbName);
-if ($dbcon = $dbService->dbConnect()) {
-    $result = $dbService->select('user_tb', ['fname'], ['email' => "'damery1@statcounter.com'", 'pass' => "'3vPfAb'"], 'AND');
-    echo $result->num_rows;
-}
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
+    $email = $_POST['email'];
+    $pass = $_POST['pass'];
+    $role = intval($_POST['role']);
+    include './services/dbservices.php';
+    include './services/logservice.php';
+    $dbService = new dbServices($hostName, $userName, $password, $dbName);
+    if ($dbcon = $dbService->dbConnect()) {
+        $result = $dbService->select('user_tb', ['email' => "'$email'", 'pass' => "'$pass'", 'role' => "$role"], 'AND');
+        if ($result->num_rows > 0) {
+            // print_r($result->fetch_assoc());
+            $user = $result->fetch_assoc();
+            $_SESSION['logUser'] = $user;
+            $logSrv = new logService($user['uid'], 0, "User Login");
+            $logOutput = $logSrv->logToArray();
+            $dbService->insert('log_tb', $logOutput[1], $logOutput[0]);
+            $logResult = $dbService->select('log_tb', ['uid' => $user['uid'], 'title' => "'default password change'"], "AND");
+            if ($logResult->num_rows == 0) {
+                $dbService->closeDb();
+                header("Location: " . $baseName . "chpass.php");
+                exit();
+            }
+        }
+    }
 }
 ?>
 <?php include './pages/footer.php'; ?>

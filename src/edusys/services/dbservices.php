@@ -12,6 +12,7 @@ class dbServices
         $this->userName = $userName;
         $this->password = $password;
         $this->dbName = $dbName;
+        $this->num_rows = 0;
     }
     function dbConnect()
     {
@@ -40,52 +41,50 @@ class dbServices
         }
         return false;
     }
-    function select($tbName, $fieldArray = null, $whereArray = null, $operator = null)
+    function update($tbName, $updateFields, $conditionArray, $operator = null)
+    {
+        $updateFieldStr = "";
+        foreach ($updateFields as $field => $val) {
+            $updateFieldStr .= "$field=$val";
+            if ($field != array_key_last($updateFields)) {
+                $updateFields .= ",";
+            }
+        }
+        $where = "WHERE ";
+        foreach ($conditionArray as $key => $value) {
+            $where .= "$key=$value";
+            if ($key != array_key_last($conditionArray)) {
+                $where .= " $operator ";
+            }
+        }
+        $updateQuery = "UPDATE $tbName SET $updateFieldStr $where";
+        if ($this->dbcon->query($updateQuery) === TRUE) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    function select($tbName, $conditionArray = null, $operator = null, $fieldArray = null)
     {
         if ($fieldArray != null) {
             $fields = implode(',', $fieldArray);
         } else {
-            $fields = '*';
+            $fields = "*";
         }
-        if ($whereArray != null) {
+        if ($conditionArray != null) {
             $where = "WHERE ";
-            $i = 0;
-            foreach ($whereArray as $key => $value) {
-                if ($i > 0) {
+            foreach ($conditionArray as $key => $value) {
+                $where .= "$key=$value";
+                if ($key != array_key_last($conditionArray)) {
                     $where .= " $operator ";
                 }
-                $where .= "$key = $value";
-                $i++;
             }
         } else {
             $where = '';
         }
         $selectCmd = "SELECT $fields FROM $tbName $where";
         $result = $this->dbcon->query($selectCmd);
-        if ($result->num_rows > 0) {
-            return $result;
-        }
-        return false;
+        return $result;
     }
-
-// function select($tbName, $fieldArray = null, $where = null)
-// {
-//     if ($fieldArray != null) {
-//         $fields = implode(',', $fieldArray);
-//     } else {
-//         $fields = '*';
-//     }
-//     if ($where != null) {
-//         $where = "WHERE $where";
-//     } else {
-//         $where = '';
-//     }
-//     $selectCmd = "SELECT $fields FROM $tbName $where";
-//     $result = $this->dbcon->query($selectCmd);
-//     if ($result->num_rows > 0) {
-//         return $result;
-//     }
-//     return false;
-// }
 }
 ?>
