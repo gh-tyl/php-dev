@@ -1,8 +1,8 @@
-DROP DATABASE IF EXISTS `WePostDB`;
-CREATE DATABASE `WePostDB` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
-USE `WePostDB`;
+DROP DATABASE IF EXISTS `edu_db`;
+CREATE DATABASE `edu_db` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE `edu_db`;
 DROP TABLE IF EXISTS `user_table`;
-CREATE TABLE `WePostDB`.`user_table` (
+CREATE TABLE `edu_db`.`user_table` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `first_name` VARCHAR(50) NOT NULL,
   `last_name` VARCHAR(50) NOT NULL,
@@ -17,14 +17,14 @@ CREATE TABLE `WePostDB`.`user_table` (
   );
 
 DROP TABLE IF EXISTS `genre_table`;
-CREATE TABLE `WePostDB`.`genre_table` (
+CREATE TABLE `edu_db`.`genre_table` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `genre` VARCHAR(50) NOT NULL,
   PRIMARY KEY (`id`)
   );
 
 DROP TABLE IF EXISTS `article_table`;
-CREATE TABLE `WePostDB`.`article_table` (
+CREATE TABLE `edu_db`.`article_table` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `user_id` INT NOT NULL,
   `title` VARCHAR(50) NOT NULL,
@@ -44,7 +44,7 @@ CREATE TABLE `WePostDB`.`article_table` (
   );
 
 DROP TABLE IF EXISTS `article_pic_table`;
-CREATE TABLE `WePostDB`.`article_pic_table` (
+CREATE TABLE `edu_db`.`article_pic_table` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `article_id` INT NOT NULL,
   `json_path` VARCHAR(200) NOT NULL,
@@ -53,7 +53,7 @@ CREATE TABLE `WePostDB`.`article_pic_table` (
   );
 
 DROP TABLE IF EXISTS `comment_table`;
-CREATE TABLE `WePostDB`.`comment_table` (
+CREATE TABLE `edu_db`.`comment_table` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `user_id` INT NOT NULL,
   `article_id` INT NOT NULL,
@@ -65,7 +65,7 @@ CREATE TABLE `WePostDB`.`comment_table` (
   );
 
 DROP TABLE IF EXISTS `comment_pic_table`;
-CREATE TABLE `WePostDB`.`comment_pic_table` (
+CREATE TABLE `edu_db`.`comment_pic_table` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `comment_id` INT NOT NULL,
   `json_path` VARCHAR(200) NOT NULL,
@@ -74,7 +74,7 @@ CREATE TABLE `WePostDB`.`comment_pic_table` (
   );
 
 DROP TABLE IF EXISTS `like_table`;
-CREATE TABLE `WePostDB`.`like_table` (
+CREATE TABLE `edu_db`.`like_table` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `user_id` INT NOT NULL,
   `article_id` INT NOT NULL,
@@ -84,7 +84,7 @@ CREATE TABLE `WePostDB`.`like_table` (
   );
 
 DROP TABLE IF EXISTS `store_table`;
-CREATE TABLE `WePostDB`.`store_table` (
+CREATE TABLE `edu_db`.`store_table` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `user_id` INT NOT NULL,
   `article_id` INT NOT NULL,
@@ -94,7 +94,7 @@ CREATE TABLE `WePostDB`.`store_table` (
   );
 
 DROP TABLE IF EXISTS `follow_table`;
-CREATE TABLE `WePostDB`.`follow_table` (
+CREATE TABLE `edu_db`.`follow_table` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `user_id` INT NOT NULL,
   `follow_user_id` INT NOT NULL,
@@ -104,7 +104,7 @@ CREATE TABLE `WePostDB`.`follow_table` (
   );
 
 DROP TABLE IF EXISTS `login_table`;
-CREATE TABLE `WePostDB`.`login_table` (
+CREATE TABLE `edu_db`.`login_table` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `user_id` INT NOT NULL,
   `datetime` DATETIME NOT NULL,
